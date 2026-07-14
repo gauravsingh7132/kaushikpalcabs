@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7KJJFF0Z3W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-7KJJFF0Z3W');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kaushik Pal Cabs — Outstation Taxi from Delhi NCR | Book Now</title>
@@ -1709,8 +1700,8 @@
         </div>
         <div class="fare-road"><span class="cab">🚖</span></div>
         <div class="fare-prices">
-          <div class="fare-opt"><span class="seat">5 Seater</span><span class="amt">₹5,000<small>onwards</small></span></div>
-          <div class="fare-opt"><span class="seat">7 Seater</span><span class="amt">₹5,500<small>onwards</small></span></div>
+          <div class="fare-opt"><span class="seat">5 Seater</span><span class="amt">₹4,000<small>onwards</small></span></div>
+          <div class="fare-opt"><span class="seat">7 Seater</span><span class="amt">₹4,500<small>onwards</small></span></div>
         </div>
         <div class="fare-tap-hint">👉 Tap to book this route</div>
       </button>
@@ -1722,8 +1713,8 @@
         </div>
         <div class="fare-road"><span class="cab">🚖</span></div>
         <div class="fare-prices">
-          <div class="fare-opt"><span class="seat">5 Seater</span><span class="amt">₹3,500<small>onwards</small></span></div>
-          <div class="fare-opt"><span class="seat">7 Seater</span><span class="amt">₹4,000<small>onwards</small></span></div>
+          <div class="fare-opt"><span class="seat">5 Seater</span><span class="amt">₹4,000<small>onwards</small></span></div>
+          <div class="fare-opt"><span class="seat">7 Seater</span><span class="amt">₹4,500<small>onwards</small></span></div>
         </div>
         <div class="fare-tap-hint">👉 Tap to book this route</div>
       </button>
@@ -2072,29 +2063,27 @@
     btn.textContent = isOpen ? '− Hide notes' : '+ Add car preference / notes (optional)';
   }
 
-  // Fires the real Google Ads "Submit lead form" conversion action.
-  // This same label is used for the form submit, the standalone Chat button,
-  // and is what Tools > Conversions > Diagnose tags will check for.
-  function fireConversion() {
+  // Fires the "ads_conversion" GA4 event, which is set as the Primary event
+  // for the "Submit lead form" conversion action in Google Ads (account 237-011-6003).
+  // Used for WhatsApp clicks, form submissions, and call clicks so every
+  // query/lead gets counted as a conversion.
+  function fireConversion(label) {
     if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {
-        'send_to': 'AW-16683760213/hOmiCM2ozM0ZENX0t5M-',
-        'event_callback': function() {}
+      gtag('event', 'ads_conversion', {
+        'event_category': 'lead',
+        'event_label': label || 'lead'
       });
     }
   }
 
   function trackWhatsappClick() {
-    fireConversion();
+    fireConversion('whatsapp_click');
   }
 
   function trackEmailClick() {
-    // Fire Google Ads conversion for corporate email click
+    // Fire the Google Ads conversion for corporate email click
+    fireConversion('corporate_email_click');
     if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {
-        'send_to': 'AW-16683760213/hOmiCM2ozM0ZENX0t5M-',
-        'event_callback': function() {}
-      });
       // Also fire a custom GA4 event to distinguish email leads from WhatsApp leads
       gtag('event', 'corporate_email_click', {
         'event_category': 'lead',
@@ -2104,8 +2093,8 @@
   }
 
   function trackCallClick() {
-    // Call extension + call conversion action already tracks this on the Google Ads side.
-    // Kept here in case a custom "Calls" event needs to be layered on later.
+    // Fires the same conversion so click-to-call buttons are counted as leads too.
+    fireConversion('call_click');
   }
 
   function handleSubmit(e) {
@@ -2148,8 +2137,8 @@ Please confirm car availability and fare.`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/919760308356?text=${encodedMessage}`;
 
-    // Google Ads conversion tracking — fires on every WhatsApp lead
-    fireConversion();
+    // Google Ads conversion tracking — fires on every booking form submission
+    fireConversion('form_submit');
 
     const toast = document.getElementById('toast');
     toast.classList.add('show');
@@ -2171,12 +2160,12 @@ Please confirm car availability and fare.`;
   }
 </script>
 <!-- Google tag (gtag.js) — loads once, configures both GA4 and Ads -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16683760213"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18319994079"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'AW-16683760213');   // Google Ads
+  gtag('config', 'AW-18319994079');   // Google Ads
   gtag('config', 'G-EJZW6KJHDW');    // GA4
 </script>
 
