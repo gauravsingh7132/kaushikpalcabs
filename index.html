@@ -2063,12 +2063,17 @@
     btn.textContent = isOpen ? '− Hide notes' : '+ Add car preference / notes (optional)';
   }
 
-  // Fires the "ads_conversion" GA4 event, which is set as the Primary event
-  // for the "Submit lead form" conversion action in Google Ads (account 237-011-6003).
-  // Used for WhatsApp clicks, form submissions, and call clicks so every
-  // query/lead gets counted as a conversion.
+  // Fires the native Google Ads "Submit lead form" conversion tag directly
+  // (account 237-011-6003, conversion ID AW-18319994079/pikcCLuo2dAcEN_Z059E).
+  // This reports straight to Google Ads with no GA4-import delay, so calls,
+  // WhatsApp clicks, and form submissions show up as conversions right away.
   function fireConversion(label) {
     if (typeof gtag === 'function') {
+      // Direct Google Ads conversion — this is the one Google Ads actually counts.
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18319994079/pikcCLuo2dAcEN_Z059E'
+      });
+      // Also keep firing the GA4 custom event for analytics/reporting purposes.
       gtag('event', 'ads_conversion', {
         'event_category': 'lead',
         'event_label': label || 'lead'
